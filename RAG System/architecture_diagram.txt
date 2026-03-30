@@ -1,0 +1,32 @@
+# Medical Information Assistant - RAG Pipeline Architecture
+
+[ USER QUERY ]
+      |
+      v
+[ EMERGENCY DETECTION ] ----> (If Match) ----> [ CRITICAL CARE GUIDANCE ]
+      |
+      | (If Normal)
+      v
+[ QUERY EMBEDDING ] (OpenAI / Sentence-Transformers)
+      |
+      v
+[ VECTOR SEARCH ] (ChromaDB / FAISS)
+      |  - Similarity Search
+      |  - Metadata Filtering (Recency, Source Trust)
+      v
+[ CONTEXT RETRIEVAL ] (Top-K Documents)
+      |
+      v
+[ PROMPT CONSTRUCTION ]
+      |  - System Message: Factual, citations-only, simple language
+      |  - Context: Document Chunks + Source Meta
+      |  - Disclaimer: Mandatory Medical Disclaimer
+      v
+[ LLM GENERATION ] (GPT-4 / Llama-3)
+      |
+      v
+[ RESPONSE REFINEMENT ]
+      |  - Self-check for hallucinations
+      |  - Citation formatting
+      v
+[ USER INTERFACE ] (Streamlit)
